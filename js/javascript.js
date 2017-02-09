@@ -14,7 +14,7 @@ $(function() {
 });
 
 $(window).scroll(function() {
-  if($(this).scrollTop() > 150){
+  if($(this).scrollTop() > 180){
     $('nav').addClass("sticky");
   } else {
     $('nav').removeClass("sticky");
