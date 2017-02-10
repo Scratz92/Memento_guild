@@ -11,15 +11,17 @@
   <body>
     <!--<img id="recruit_temp" src="css/img/recruitment_status.png" alt="">-->
     <header class="main_header" id="section_1">
-      <h1>Memento</h1>
+      <div class="temp">
+        <img id="title" src="css/img/rsz_logo_title.png" alt="">
+      </div>
+
       <div class="nav-wrapper" style="height: 80px;">
         <nav>
           <ul>
             <li><a href="#section_1">Home</a></li>
-            <li><a href="#section_2">Roster</a></li>
             <li><a href="#section_3">Gallery</a></li>
             <li><a href="#section_4">About Us</a></li>
-            <li><a href="#section_5">Join Us</a></li>
+            <li><a href="#section_5">Recruitment</a></li>
           </ul>
         </nav>
       </div>
@@ -28,60 +30,56 @@
         <div class="raid_title">
           <h2>Nighthold Mythic</h2>
         </div>
-        <div class="boss1">
-          <img src="css/img/dead/skor.png" alt="">
-          <img src="css/img/dead/chro.png" alt="">
-          <img src="css/img/alive/tril.png" alt="">
-          <img src="css/img/alive/spell.png" alt="">
-          <img src="css/img/alive/tichon.png" alt="">
-
-          <img src="css/img/alive/kro.png" alt="">
-          <img src="css/img/alive/bota.png" alt="">
-          <img src="css/img/alive/star.png" alt="">
-          <img src="css/img/alive/elis.png" alt="">
-          <img src="css/img/alive/gul.png" alt="" style="height: 200px;">
+        <div class="raid_roster">
+          <div class="trial_raiders">
+            <h3>Trials</h3>
+            <!--API from blizzard-->
+          </div>
+          <div class="core_raiders">
+            <h3>Raiders</h3>
+            <!--API from blizzard-->
+          </div>
         </div>
+
+        <div class="boss1">
+          <img title="Skorpyron" src="css/img/dead/skor.png" alt="">
+          <img title="Chronomatic Anomaly" src="css/img/dead/chro.png" alt="">
+          <img title="Trilliax" src="css/img/alive/tril.png" alt="">
+          <img title="Spellblade Aluriel" src="css/img/alive/spell.png" alt="">
+          <img title="Tichondrius" src="css/img/alive/tichon.png" alt="">
+          <img title="Krosus" src="css/img/alive/kro.png" alt="">
+          <img title="High Botanist Tel'arn" src="css/img/alive/bota.png" alt="">
+          <img title="Star Augur Etraeus" src="css/img/alive/star.png" alt="">
+          <img title="Grand Magistrix Elisande" src="css/img/alive/elis.png" alt="">
+          <img title="Gul'dan" src="css/img/alive/gul.png" alt="" style="height: 200px;">
+        </div>
+
+        <div class="guild_rank">
+            <div class="wowprogress">
+              <h3 id="realm">Realm Rank</h3>
+              <p>8</p>
+              <h3 id="region">Region Rank EU</h3>
+              <p>1477</p>
+              <h3 id="world">World Rank</h3>
+              <p>2358</p>
+            </div>
+            <h3>Raid Logs</h3>
+            <div class="log_links">
+
+            </div>
+        </div>
+
       </div>
     </header>
 
 
-    <section id="section_2">
-      <h1>Raid Roster</h1>
-      <div class="raid_roster">
-        <div class="trial_raiders">
-          <h3>Trials</h3>
-          <!--API from blizzard-->
-        </div>
-        <div class="core_raiders">
-          <h3>Raiders</h3>
-          <!--API from blizzard-->
-        </div>
-      </div>
 
-      <div class="guild_rank">
-        <div class="progress_logs">
-          <div class="wowprogress">
-            <h3 id="realm">Realm Rank</h3>
-            <p>8</p>
-            <h3 id="region">Region Rank EU</h3>
-            <p>1477</p>
-            <h3 id="world">World Rank</h3>
-            <p>2358</p>
-          </div>
-
-          <div class="wowlogs">
-            <h3>Warcraft Logs</h3>
-            <div class="log_links"></div>
-          </div>
-        </div>
-      </div>
-    </section>
 
     <section id="section_3">
       <h1>Gallery</h1>
       <script src="js/jquery-1.11.3.min.js" type="text/javascript"></script>
       <script src="js/jssor.slider-22.2.0.mini.js" type="text/javascript"></script>
-      <div id="jssor_1" style="position:relative;margin:50px auto;top:0px;left:0px;width:800px;height:456px;overflow:hidden;visibility:hidden;background-color: none;">
+      <div id="jssor_1" style="position:relative;margin:0px auto;top:0px;left:0px;width:800px;height:456px;overflow:hidden;visibility:hidden;background-color: none;">
           <!-- Loading Screen -->
           <div data-u="loading" style="position:absolute;top:0px;left:0px;background-color:rgba(0,0,0,0.7);">
               <div style="filter: alpha(opacity=70); opacity: 0.7; position: absolute; display: block; top: 0px; left: 0px; width: 100%; height: 100%;"></div>
@@ -172,7 +170,7 @@
       </div>
     </section>
     <section class="join_us" id="section_5">
-      <h1>Join Us</h1>
+      <h1>Recruitment</h1>
       <p>We're looking for dedicated players
         for our Mythic raid team, progression through
         Legion end content. Our goal as a guild is

@@ -9,7 +9,6 @@
 }
 html, body {
   margin: 0; padding: 0;
-  border: 2px solid red;
   width: 100%;
   background-image: url("img/background.jpg");
   -webkit-background-size:cover;
@@ -28,26 +27,27 @@ a:link { text-decoration: none; color: #FFFFFF; }
 a:hover { color: #83ef70; }
 
 section {
-  margin: 25px auto;
+  margin: 0px auto;
   padding-bottom: 50px;
-  width: 800px;
+  width: 1000px;
   text-align: center;
   overflow-y: hidden;
-  border-bottom: 1px solid #FFFFFF;
+  background-color: rgba(0, 0, 0, 0.5);
 }
 section h1 {
   font-size: 7em;
   padding-top: 50px;
-  margin: 0;
+  margin: 0 auto;
   font-family: tab_font;
   font-weight: lighter;
-  text-decoration: underline;
+  border-bottom: 1px solid white;
   color: #CEDDEB;
+  width: 600px;
 }
 #section_2 {
   visibility: show;
 }
-header { border-bottom: 1px solid white; }
+header {background-color: rgba(0, 0, 0, 0.5); }
 /* Class colors */
 ._1 { background-color: #00FF96; }
 ._2 { background-color: #F58CBA; } /* Paladin */
@@ -62,17 +62,13 @@ header { border-bottom: 1px solid white; }
 ._11 { background-color: #FF7D0A; } /* Druid */
 ._12 { background-color: #A330C9; } /* Demon Hunter */
 
-
-.main_header { height: 100vh; width: 800px; margin: 0 auto;}
-.main_header h1 {
-  margin: 0 auto;
-  padding: 25px 0 0 0;
-  font-family: myFirstFont;
-  font-size: 10em;
-  color: #FFFFFF;
+.temp {
   width: 800px;
-  text-align: center;
+  margin: 0 auto;
 }
+.main_header { height: 100vh; width: 1000px; margin: 0 auto;}
+
+#title{ margin: 20px auto; }
 nav {
   width: 800px;
   text-align: center;
@@ -114,7 +110,7 @@ nav ul li a:link { text-decoration: none; color: #000000; }
 nav ul li a:active { color: #FFFFFF; }
 
 
-.raid_progress .raid_title { text-align: center; margin: -35px auto;}
+.raid_progress .raid_title { text-align: center; margin: -15px auto;}
 .raid_progress .raid_title h2 {
   margin: 0;
   color: #CEDDEB;
@@ -122,7 +118,7 @@ nav ul li a:active { color: #FFFFFF; }
   font-size: 6em;
   font-weight: lighter;
 }
-.boss1 {width: 500px; margin: 0 auto; }
+.boss1 {width: 500px; margin: 0 auto; float: left; }
 .boss1 img { margin-left: -15px; max-width: 120px; max-height: 200px; }
 
 
@@ -137,54 +133,51 @@ nav ul li a:active { color: #FFFFFF; }
 /*Roster*/
 .raid_roster {
   float: left;
-  width: 400px;
+  width: 250px;
   list-style-type: none;
-  font-size: 1.4em;
-  font-family: thick_standard;
+  font-family: verdana;
 }
 .raid_roster h3 {
   color: #CEDDEB;
   text-align: center;
+  margin: 0;
 }
-.core_raiders { text-align: left; float: left; width: 150px; margin-left: 50px; }
-.core_raiders li { padding-left: 10px;margin-bottom: 5px; }
-.trial_raiders { float: left; width: 150px; margin-left: 20px; }
-.trial_raiders li { margin-bottom:  5px; }
+.raid_roster li {
+  font-size: 0.8em;
+  padding: 2px;
+}
+.core_raiders { text-align: center; float: left; width: 90px; margin-left: 20px;}
+.core_raiders li { margin: 2px auto; }
+.trial_raiders { text-align: center; float: left; width: 80px; margin-left: 20px; }
+.trial_raiders li { margin: 2px auto; }
 
 .guild_rank {
-  width: 400px;
-  margin: 100px auto;
+  width: 250px;
   float: left;
-  font-family: thick_standard;
-  font-size: 1.4em;
+  font-family: verdana;
   color: #CEDDEB;
+  text-align: center;
 }
-.progress_logs {
-  font-size: 0.9em;
-  padding-top: 25px;
-}
-.wowprogress p{
-  font-family: myFirstFont;
-  font-size: 2em;
-  color: red;
+.guild_rank h3 {
   margin: 0;
-  padding: 0;
 }
-.wowlogs{
-  margin-top:  50px;
+.guild_rank p {
+  margin: 0;
+  color: red;
+  margin-bottom: 10px;
 }
 .log_links {
-  margin: 0 auto;
-  width: 250px;
-  border-radius: 10px;
-  border: 1px solid #83ef70;
+  margin: 5px auto 0 auto;
+  width: 80%;
   list-style-type: none;
-  font-family: garamond;
   background-color: rgba(0, 0, 0, 0.5);
+  border: 1px solid #83ef70;
+  border-radius: 10px;
 }
-.wowprogress h3{
-  margin: 0;
+.log_links li {
+  padding: 1px;
 }
+
 
 .jssora05l, .jssora05r {
     display: block;
@@ -196,7 +189,9 @@ nav ul li a:active { color: #FFFFFF; }
     overflow: hidden;
 }
 
-
+#section_3 h1 {
+  margin-bottom: 100px;
+}
 .jssora05l { background-position: -10px -40px; }
 .jssora05r { background-position: -70px -40px; }
 .jssora05l:hover { background-position: -130px -40px; }
