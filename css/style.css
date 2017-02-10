@@ -2,6 +2,8 @@
 @font-face { font-family: elven; src: url(elvencommonspeak.ttf); }
 @font-face { font-family: thick_standard; src: url(FFF_Light_TRIAL.ttf); }
 @font-face { font-family: rules; src: url(AdventureOfTheOldGiant.ttf); }
+@font-face { font-family: tab_font; src: url(minotaur.ttf) format("truetype"); }
+
 #recruit_temp {
   position: fixed;
 }
@@ -37,10 +39,13 @@ section h1 {
   font-size: 7em;
   padding-top: 50px;
   margin: 0;
-  font-family: thick_standard;
+  font-family: tab_font;
   font-weight: lighter;
   text-decoration: underline;
   color: #CEDDEB;
+}
+#section_2 {
+  visibility: show;
 }
 header { border-bottom: 1px solid white; }
 /* Class colors */
@@ -109,7 +114,7 @@ nav ul li a:link { text-decoration: none; color: #000000; }
 nav ul li a:active { color: #FFFFFF; }
 
 
-.raid_progress .raid_title { text-align: center; }
+.raid_progress .raid_title { text-align: center; margin: -35px auto;}
 .raid_progress .raid_title h2 {
   margin: 0;
   color: #CEDDEB;
@@ -119,7 +124,6 @@ nav ul li a:active { color: #FFFFFF; }
 }
 .boss1 {width: 500px; margin: 0 auto; }
 .boss1 img { margin-left: -15px; max-width: 120px; max-height: 200px; }
-
 
 
 /* Guild laws */
