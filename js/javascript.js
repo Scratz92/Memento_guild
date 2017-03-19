@@ -1,3 +1,4 @@
+/* Smooth scrolling */
 $(function() {
   $('a[href*="#"]:not([href="#"])').click(function() {
     if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname) {
@@ -13,44 +14,38 @@ $(function() {
   });
 });
 
-$(window).scroll(function() {
-  if($(this).scrollTop() > 180){
-    $('nav').addClass("sticky");
-  } else {
-    $('nav').removeClass("sticky");
-  }
-});
-
-
-
-
-$.getJSON('https://www.wowprogress.com/guild/us/sen-jin/Premonition/rating.tier8.ach/json_rank?callback=?', function(data) {
-  var temp;
-  temp = data.world_rank;
-
-  console.log(temp);
-});
-
-$.getJSON('https://www.warcraftlogs.com:443/v1/reports/guild/Memento/Auchindoun/EU?api_key=d59793255903969b4685a0a62961310d', function(data) {
-  var logs;
-  logs = data;
-  var log_name = [];
-  var log_link = []
-  var q = 0;
-
-  for (var i = logs.length-10; i < logs.length; i++) {
-    log_name[q] = logs[i].title;
-    log_link[q] = logs[i].id;
-    q++
-  }
-
-  $.each(
-    log_name,
-    function(i,v) {
-      $(".log_links").append("<li><a href='https://www.warcraftlogs.com/reports/" + log_link[i] + "' target='_blank'>" + v + "</a></li>");
+$(document).ready(function() {
+  // Custom
+  var stickyToggle = function(sticky, stickyWrapper, scrollElement) {
+    var stickyHeight = sticky.outerHeight();
+    var stickyTop = stickyWrapper.offset().top;
+    if (scrollElement.scrollTop() >= stickyTop){
+      stickyWrapper.height(stickyHeight);
+      sticky.addClass("is-sticky");
     }
-  );
+    else{
+      sticky.removeClass("is-sticky");
+      stickyWrapper.height('auto');
+    }
+  };
+
+  // Find all data-toggle="sticky-onscroll" elements
+  $('[data-toggle="sticky-onscroll"]').each(function() {
+    var sticky = $(this);
+    var stickyWrapper = $('<div>').addClass('sticky-wrapper'); // insert hidden element to maintain actual top offset on page
+    sticky.before(stickyWrapper);
+    sticky.addClass('sticky');
+
+    // Scroll & resize events
+    $(window).on('scroll.sticky-onscroll resize.sticky-onscroll', function() {
+      stickyToggle(sticky, stickyWrapper, $(this));
+    });
+
+    // On page load
+    stickyToggle(sticky, stickyWrapper, $(window));
+  });
 });
+
 
 
 /* Raid roster API from battle.net */
@@ -62,11 +57,11 @@ $.getJSON('https://eu.api.battle.net/wow/guild/Auchindoun/Memento?fields=members
   var rank_ = [];
   var j = 0;
   roster = data;
-  /*Checking for players ranking and class*/
+  /* Checking for players ranking and class */
   for (var i = 0; i < roster.members.length; i++) {
     if(roster.members[i].rank < 5) {
       class_[j] = roster.members[i].character.class;
-      spec[j] = roster.members[i].character.spec.name;
+      spec[j] = roster.members[i].character.spec.role;
       name_[j] = roster.members[i].character.name;
       rank_[j] = roster.members[i].rank;
       ++j;
@@ -77,11 +72,67 @@ $.getJSON('https://eu.api.battle.net/wow/guild/Auchindoun/Memento?fields=members
     function(i,v) {
       if (v != "Nightmãre") {
         if(rank_[i] == 4) {
-          $(".trial_raiders").append("<li class='_" + class_[i] + "'>" + v + "</li>");
-        } else {
-          $(".core_raiders").append("<li class='_" + class_[i] + "'>" + v + "</li>");
+          $(".trials").append("<li class='_" + class_[i] + "'>" + v + "</li>");
+        } else if(name_[i] == "Varum" || name_[i] == "Evelud") {
+          $(".tanks").append("<li class='_" + class_[i] + "'>" + v + "</li>");
+        } else if(name_[i] == "Alleska" || name_[i] == "Rágnakar" || name_[i] == "Vi") {
+          $(".healers").append("<li class='_" + class_[i] + "'>" + v + "</li>");
+        } else if(name_[i] == "Ryrka" ||
+        name_[i] == "Andesteg" ||
+        name_[i] == "Slickk" ||
+        name_[i] == "Lulu" ||
+        name_[i] == "Nattevagten" ||
+        name_[i] == "Runethene" ||
+        name_[i] == "Fabulousfu" ||
+        name_[i] == "Pratiarch" ||
+        name_[i] == "Garydozs" ||
+        name_[i] == "Skrummel"
+      ) {
+          $(".dps").append("<li class='_" + class_[i] + "'>" + v + "</li>");
+        }
+
+
+
+        if (rank_[i] <= 1) {
+          $(".offi").append("<li class='_" + class_[i] + "'>" + v + "</li>");
+        }
+
+        if (rank_[i] == 2) {
+          $(".little_helpers").append("<li class='_" + class_[i] + "'>" + v + "</li>");
+        }
+
+        // Contact one of these officers, recruitment section
+        if(rank_[i] <= 2) {
+          $(".officers").append("<li class='_" + class_[i] + "'>" + v + "</li>");
         }
       }
+    }
+  );
+});
+
+/* Warcraftlogs API */
+$.getJSON('https://www.warcraftlogs.com:443/v1/reports/guild/Memento/Auchindoun/EU?api_key=d59793255903969b4685a0a62961310d', function(data) {
+  var logs;
+  logs = data;
+  var log_name = [];
+  var log_link = [];
+  var log_date = [];
+  var q = 0;
+
+
+  for (var i = logs.length-10; i < logs.length; i++) {
+    log_name[q+9] = logs[i].title;
+    log_link[q+9] = logs[i].id;
+    log_date[q+9] = logs[i].start;
+    q--;
+  }
+
+  $.each(
+    log_name,
+    function(i,v) {
+      var date = new Date(log_date[i]);
+      $(".log_links").append("<li><a href='https://www.warcraftlogs.com/reports/" + log_link[i] + "' target='_blank'>" + v + "</a></li>");
+      $(".log_date").append("<li><a href='https://www.warcraftlogs.com/reports/" + log_link[i] + "' target='_blank'>" + date.customFormat("#DD#/#MM#") + "</a></li>");
     }
   );
 });
@@ -153,3 +204,26 @@ jQuery(document).ready(function ($) {
     $(window).bind("orientationchange", ScaleSlider);
     /*responsive code end*/
 });
+
+
+//*** This code is copyright 2002-2016 by Gavin Kistner, !@phrogz.net
+//*** It is covered under the license viewable at http://phrogz.net/JS/_ReuseLicense.txt
+Date.prototype.customFormat = function(formatString){
+  var YYYY,YY,MMMM,MMM,MM,M,DDDD,DDD,DD,D,hhhh,hhh,hh,h,mm,m,ss,s,ampm,AMPM,dMod,th;
+  YY = ((YYYY=this.getFullYear())+"").slice(-2);
+  MM = (M=this.getMonth()+1)<10?('0'+M):M;
+  MMM = (MMMM=["January","February","March","April","May","June","July","August","September","October","November","December"][M-1]).substring(0,3);
+  DD = (D=this.getDate())<10?('0'+D):D;
+  DDD = (DDDD=["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"][this.getDay()]).substring(0,3);
+  th=(D>=10&&D<=20)?'th':((dMod=D%10)==1)?'st':(dMod==2)?'nd':(dMod==3)?'rd':'th';
+  formatString = formatString.replace("#YYYY#",YYYY).replace("#YY#",YY).replace("#MMMM#",MMMM).replace("#MMM#",MMM).replace("#MM#",MM).replace("#M#",M).replace("#DDDD#",DDDD).replace("#DDD#",DDD).replace("#DD#",DD).replace("#D#",D).replace("#th#",th);
+  h=(hhh=this.getHours());
+  if (h==0) h=24;
+  if (h>12) h-=12;
+  hh = h<10?('0'+h):h;
+  hhhh = hhh<10?('0'+hhh):hhh;
+  AMPM=(ampm=hhh<12?'am':'pm').toUpperCase();
+  mm=(m=this.getMinutes())<10?('0'+m):m;
+  ss=(s=this.getSeconds())<10?('0'+s):s;
+  return formatString.replace("#hhhh#",hhhh).replace("#hhh#",hhh).replace("#hh#",hh).replace("#h#",h).replace("#mm#",mm).replace("#m#",m).replace("#ss#",ss).replace("#s#",s).replace("#ampm#",ampm).replace("#AMPM#",AMPM);
+};

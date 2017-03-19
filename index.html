@@ -1,139 +1,209 @@
+<?php
+if (empty($_POST) === false) {
+  $errors = array();
+
+  $name       = $_POST['name'];
+  $class_spec = $_POST['class_spec'];
+  $raid_days  = $_POST['raid_days'];
+  $traits     = $_POST['traits'];
+  $message    = $_POST['message'];
+  $temp = "Memento_Application";
+
+  if (empty($name) === true || empty($class_spec) === true || empty($raid_days) === true || empty($traits) === true) {
+    $errors[] = 'Battletag, Class + Spec, Raid days and Traits are required';
+  }
+
+$message = <<<EMAIL
+
+$message
+
+Battletag: $name
+Spec: $class_spec
+Can you raid these days: $raid_days
+Traits: $traits
+
+EMAIL;
+
+  if (empty($errors) === true) {
+    mail('gotnosouls@gmail.com', $class_spec, $message, 'From: ' . $temp);
+    header('Location: index.php?sent');
+    exit();
+  }
+}
+?>
+<!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
     <title>Memento</title>
-    <link rel="stylesheet" href="css/style.css">
-
     <!-- jQuery library -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <!-- CSS/JS -->
+    <link rel="stylesheet" href="css/style.css">
     <script type="text/javascript" src="js/javascript.js"></script>
+    <!-- Changing the tab icon in the browser window -->
+    <link rel="icon" type="image/png" href="css/img/M_favicon.png">
   </head>
   <body>
-    <!--<img id="recruit_temp" src="css/img/recruitment_status.png" alt="">-->
-    <header class="main_header" id="section_1">
-      <div class="temp">
-        <img id="title" src="css/img/rsz_logo_title.png" alt="">
+    <header id="home">
+      <div class="title">
+        <h1>Memento</h1>
       </div>
-
-      <div class="nav-wrapper" style="height: 80px;">
-        <nav>
-          <ul>
-            <li><a href="#section_1">Home</a></li>
-            <li><a href="#section_3">Gallery</a></li>
-            <li><a href="#section_4">About Us</a></li>
-            <li><a href="#section_5">Recruitment</a></li>
+      <div class="menu">
+        <nav class="navbar navbar-light" data-toggle="sticky-onscroll" style="background-color: #CEDDEB; margin: 0 auto;" role="navigation">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="#home">Home</a></li>
+            <li><a href="#roster">Roster</a></li>
+            <li><a href="#gallery">Gallery</a></li>
+            <li><a href="#about_us">About Us</a></li>
+            <li><a href="#recruitment">Recruitment</a></li>
           </ul>
         </nav>
       </div>
-
-      <div class="raid_progress">
-        <div class="raid_title">
-          <h2>Nighthold Mythic</h2>
-        </div>
-        <div class="raid_roster">
-          <div class="trial_raiders">
-            <h3>Trials</h3>
-            <!--API from blizzard-->
-          </div>
-          <div class="core_raiders">
-            <h3>Raiders</h3>
-            <!--API from blizzard-->
-          </div>
-        </div>
-
-        <div class="boss1">
-          <img title="Skorpyron" src="css/img/dead/skor.png" alt="">
-          <img title="Chronomatic Anomaly" src="css/img/dead/chro.png" alt="">
-          <img title="Trilliax" src="css/img/alive/tril.png" alt="">
-          <img title="Spellblade Aluriel" src="css/img/alive/spell.png" alt="">
-          <img title="Tichondrius" src="css/img/alive/tichon.png" alt="">
-          <img title="Krosus" src="css/img/alive/kro.png" alt="">
-          <img title="High Botanist Tel'arn" src="css/img/alive/bota.png" alt="">
-          <img title="Star Augur Etraeus" src="css/img/alive/star.png" alt="">
-          <img title="Grand Magistrix Elisande" src="css/img/alive/elis.png" alt="">
-          <img title="Gul'dan" src="css/img/alive/gul.png" alt="" style="height: 200px;">
-        </div>
-
-        <div class="guild_rank">
-            <div class="wowprogress">
-              <h3 id="realm">Realm Rank</h3>
-              <p>8</p>
-              <h3 id="region">Region Rank EU</h3>
-              <p>1477</p>
-              <h3 id="world">World Rank</h3>
-              <p>2358</p>
-            </div>
+      <div class="raid_name">
+        <h2>Nighthold Mythic</h2>
+      </div>
+      <div class="API_container">
+        <div class="raid_info">
+          <div class="warcraftlogs">
             <h3>Raid Logs</h3>
-            <div class="log_links">
-
+            <div class="log_wrapper">
+              <div class="log_links">
+                <!-- Warcraftlogs API, check .js file for information -->
+              </div>
+              <div class="log_date">
+                <!-- Warcraftlogs API, check .js file for information -->
+              </div>
             </div>
+          </div>
         </div>
 
+        <div class="raid_progress">
+          <img id="NH_boss1" title="Skorpyron" src="css/img/NHbosses/skor.png" alt="">
+          <img id="NH_boss2" title="Chronomatic Anomaly" src="css/img/NHbosses/chro.png" alt="">
+          <img id="NH_boss3" title="Trilliax" src="css/img/NHbosses/tril.png" alt="">
+          <img id="NH_boss4" title="Spellblade Aluriel" src="css/img/NHbosses/spell.png" alt="">
+          <img id="NH_boss5" title="Tichondrius" src="css/img/NHbosses/tichon.png" alt="">
+          <img id="NH_boss6" title="Krosus" src="css/img/NHbosses/kro.png" style="margin-top: 15px;" alt="">
+          <img id="NH_boss7" title="High Botanist Tel'arn" src="css/img/NHbosses/bota.png" style="margin-top: 15px;" alt="">
+          <img id="NH_boss8" title="Star Augur Etraeus" src="css/img/NHbosses/star.png" style="margin-top: 15px;" alt="">
+          <img id="NH_boss9" title="Grand Magistrix Elisande" src="css/img/NHbosses/elis.png" style="margin-top: 15px;" alt="">
+          <img id="NH_boss10" title="Gul'dan" src="css/img/NHbosses/gul.png" style="margin-top: 15px;" alt="">
+          <div class="choose_raid">
+            <li>Nighthold</li>
+            <li>Trial of Valor</li>
+            <li>Emerald Nightmare</li>
+          </div>
+        </div>
+        <div class="raid_info">
+          <div class="wowprogress">
+            <h3 id="realm">Realm Rank</h3>
+            <h2>??</h2>
+            <h3 id="region">Region Rank EU</h3>
+            <h2>????</h2>
+            <h3 id="world">World Rank</h3>
+            <h2>????</h2>
+          </div>
+        </div>
       </div>
     </header>
+    <section id="roster">
+      <h2>Guild Roster</h2>
+      <div class="roster">
+
+        <div class="tanks rr">
+          <h3>Tanks</h3>
+           <!-- Blizzard Guild API, check .js file for information -->
+        </div>
+        <div class="healers rr">
+          <h3>Healers</h3>
+           <!-- Blizzard Guild API, check .js file for information -->
+        </div>
+        <div class="dps rr">
+          <h3>Damage</h3>
+           <!-- Blizzard Guild API, check .js file for information -->
+        </div>
+        <div class="officer rr">
+          <div class="offi">
+            <h3>Officers</h3>
+             <!-- Blizzard Guild API, check .js file for information -->
+          </div>
+          <div class="little_helpers">
+            <h3>Little Helpers</h3>
+            <!-- Blizzard Guild API, check .js file for information -->
+          </div>
+        </div>
+        <div class="trials rr">
+          <h3>Trials</h3>
+           <!-- Blizzard Guild API, check .js file for information -->
+        </div>
+      </div>
 
 
 
 
-    <section id="section_3">
-      <h1>Gallery</h1>
+    </section>
+    <section id="gallery">
+      <h2>Gallery</h2>
       <script src="js/jquery-1.11.3.min.js" type="text/javascript"></script>
       <script src="js/jssor.slider-22.2.0.mini.js" type="text/javascript"></script>
       <div id="jssor_1" style="position:relative;margin:0px auto;top:0px;left:0px;width:800px;height:456px;overflow:hidden;visibility:hidden;background-color: none;">
           <!-- Loading Screen -->
           <div data-u="loading" style="position:absolute;top:0px;left:0px;background-color:rgba(0,0,0,0.7);">
               <div style="filter: alpha(opacity=70); opacity: 0.7; position: absolute; display: block; top: 0px; left: 0px; width: 100%; height: 100%;"></div>
-              <div style="position:absolute;display:block;background:url('img/loading.gif') no-repeat center center;top:0px;left:0px;width:100%;height:100%;"></div>
+              <div style="position:absolute;display:block;background:url('css/img/loading.gif') no-repeat center center;top:0px;left:0px;width:100%;height:100%;"></div>
           </div>
           <div data-u="slides" style="cursor:default;position:relative;top:0px;left:0px;width:800px;height:356px;overflow:hidden;">
               <div>
-                  <img data-u="image" src="img/01.jpg" />
-                  <img data-u="thumb" src="img/thumb-01.jpg" />
+                  <img data-u="image" src="css/slide_show/01.jpg" />
+                  <img data-u="thumb" src="css/slide_show/thumb-01.jpg" />
               </div>
               <div>
-                  <img data-u="image" src="img/02.jpg" />
-                  <img data-u="thumb" src="img/thumb-02.jpg" />
+                  <img data-u="image" src="css/slide_show/02.jpg" />
+                  <img data-u="thumb" src="css/slide_show/thumb-02.jpg" />
               </div>
               <div>
-                  <img data-u="image" src="img/03.jpg" />
-                  <img data-u="thumb" src="img/thumb-03.jpg" />
+                  <img data-u="image" src="css/slide_show/03.jpg" />
+                  <img data-u="thumb" src="css/slide_show/thumb-03.jpg" />
               </div>
               <div>
-                  <img data-u="image" src="img/04.jpg" />
-                  <img data-u="thumb" src="img/thumb-04.jpg" />
+                  <img data-u="image" src="css/slide_show/04.jpg" />
+                  <img data-u="thumb" src="css/slide_show/thumb-04.jpg" />
               </div>
               <div>
-                  <img data-u="image" src="img/05.jpg" />
-                  <img data-u="thumb" src="img/thumb-05.jpg" />
+                  <img data-u="image" src="css/slide_show/05.jpg" />
+                  <img data-u="thumb" src="css/slide_show/thumb-05.jpg" />
               </div>
               <div>
-                  <img data-u="image" src="img/06.jpg" />
-                  <img data-u="thumb" src="img/thumb-06.jpg" />
+                  <img data-u="image" src="css/slide_show/06.jpg" />
+                  <img data-u="thumb" src="css/slide_show/thumb-06.jpg" />
               </div>
               <div>
-                  <img data-u="image" src="img/07.jpg" />
-                  <img data-u="thumb" src="img/thumb-07.jpg" />
+                  <img data-u="image" src="css/slide_show/07.jpg" />
+                  <img data-u="thumb" src="css/slide_show/thumb-07.jpg" />
               </div>
               <div>
-                  <img data-u="image" src="img/08.jpg" />
-                  <img data-u="thumb" src="img/thumb-08.jpg" />
+                  <img data-u="image" src="css/slide_show/08.jpg" />
+                  <img data-u="thumb" src="css/slide_show/thumb-08.jpg" />
               </div>
               <div>
-                  <img data-u="image" src="img/09.jpg" />
-                  <img data-u="thumb" src="img/thumb-09.jpg" />
+                  <img data-u="image" src="css/slide_show/09.jpg" />
+                  <img data-u="thumb" src="css/slide_show/thumb-09.jpg" />
               </div>
               <div>
-                  <img data-u="image" src="img/10.jpg" />
-                  <img data-u="thumb" src="img/thumb-10.jpg" />
-              </div>
-              <a data-u="any" href="http://www.jssor.com" style="display:none">Image Gallery</a>
-              <div>
-                  <img data-u="image" src="img/11.jpg" />
-                  <img data-u="thumb" src="img/thumb-11.jpg" />
+                  <img data-u="image" src="css/slide_show/10.jpg" />
+                  <img data-u="thumb" src="css/slide_show/thumb-10.jpg" />
               </div>
               <div>
-                  <img data-u="image" src="img/12.jpg" />
-                  <img data-u="thumb" src="img/thumb-12.jpg" />
+                  <img data-u="image" src="css/slide_show/11.jpg" />
+                  <img data-u="thumb" src="css/slide_show/thumb-11.jpg" />
+              </div>
+              <div>
+                  <img data-u="image" src="css/slide_show/12.jpg" />
+                  <img data-u="thumb" src="css/slide_show/thumb-12.jpg" />
               </div>
           </div>
           <!-- Thumbnail Navigator -->
@@ -154,77 +224,123 @@
           <span data-u="arrowright" class="jssora05r" style="top:158px;right:8px;width:40px;height:40px;"></span>
       </div>
     </section>
-    <section class="Rules" id="section_4">
-      <h1>About Us</h1>
-      <p style="color: #FFFFFF;">Something AWESOME about the guild<br> Lorem ipsum dolor sit amet,
-         consectetur adipisicing elit, sed do eiusmod tempor
-         incididunt ut labore et dolore magna aliqua.
-         Ut enim ad minim veniam, quis nostrud exercitation
-         ullamco laboris nisi ut aliquip ex ea commodo consequat.
-         Duis aute irure dolor in reprehenderit in voluptate
-         velit esse cillum dolore eu fugiat nulla pariatur.
-         Excepteur sint occaecat cupidatat non proident,
-         sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-      <div class="rules_section">
-        <img src="css/img/rsz_rules_paper.png" alt="">
-      </div>
+    <section id="about_us">
+      <h2>About Us</h2>
+      <p>
+        We are a casual raiding guild on Alliance Auchindoun.
+        Guild was formed during Legion and consist of a tight
+        core of different IRL as well as online friends.
+        We raid 9 hours per week over three raid days: Monday,
+        Wednesday and Sunday from 20:00 to 21:00 GMT +1.<br><br>
+
+        Our goal as a guild is to clear content on highest
+        difficulty before next set of raid tier is released.<br><br>
+
+        Even if we say we are a casual guild we don’t consider
+        our performance from our raiders to be casual at all.
+        We see ourselves as a place for raiders with hardcore
+        performance, but an unwillingness to raid everyday more than
+        3 days a week.<br><br>
+
+        We believe that wipes should be caused by a flaw of tactics
+        rather than by personal mistakes Even if we keep a relaxed
+        environment and we goof around a lot on voice communication,
+        we expect that everyone can bring full focus when it comes to bosses.<br><br>
+
+        Outside of raids we expect our raiders to at least do a
+        Mythic 15+ for the weekly chest as well as that our
+        raiders that don’t have the 54 trait yet to actively try and achieve it.
+      </p>
+      <h3>Guild Rules</h3>
+      <ul>
+        <li>All BoE'e from guild raids goes to the guild bank</li>
+        <li>A trials period will never last more than 3 weeks</li>
+        <li>Never PUG what the guild is currently raiding, unless you're unable to attend</li>
+      </ul>
     </section>
-    <section class="join_us" id="section_5">
-      <h1>Recruitment</h1>
-      <p>We're looking for dedicated players
-        for our Mythic raid team, progression through
-        Legion end content. Our goal as a guild is
-        clearing end content before the next raid tier.
+    <section id="recruitment">
+      <h2>Recruitment</h2>
+      <p>
+      We're looking for dedicated players
+      for our Mythic raid team, progression through
+      Legion end content. Our goal as a guild is
+      clearing end content before the next raid tier.
       </p>
       <div class="Rstatus">
-        <h2>Recruitment Status</h2>
-        <img src="css/img/spec_icons/arcane.png" alt="">
-        <img src="css/img/spec_icons/fire.png" alt="">
-        <img src="css/img/spec_icons/windwalker.png" alt="">
-        <img src="css/img/spec_icons/arms.png" alt="">
-        <img src="css/img/spec_icons/fury.png" alt="">
-        <img src="css/img/spec_icons/havoc.png" alt="">
-        <img src="css/img/spec_icons/outlaw.png" alt="">
-        <img src="css/img/spec_icons/sublety.png" alt="">
-        <img src="css/img/spec_icons/assasin.png" alt="">
-        <img src="css/img/spec_icons/destruction.png" alt="">
-        <img src="css/img/spec_icons/demon.png" alt="">
-        <img src="css/img/spec_icons/afflication.png" alt="">
-        <img src="css/img/spec_icons/unholy.png" alt="">
-        <img src="css/img/spec_icons/elemental.png" alt="">
-        <img src="css/img/spec_icons/enhancement.png" alt="">
-        <img src="css/img/spec_icons/shadow.png" alt="">
+        <h3>Currently Recruiting:</h3>
+        <img title="Arcane Mage" src="css/img/spec_icons/arcane.png" alt="">
+        <img title="Fire Mage" src="css/img/spec_icons/fire.png" alt="">
+        <img title="Windwalker Monk" src="css/img/spec_icons/windwalker.png" alt="">
+        <img title="Arms Warrior" src="css/img/spec_icons/arms.png" alt="">
+        <img title="Fury Warrior" src="css/img/spec_icons/fury.png" alt="">
+        <img title="Havoc Demon Hunter" src="css/img/spec_icons/havoc.png" alt="">
+        <img title="Outlaw Rogue" src="css/img/spec_icons/outlaw.png" alt="">
+        <img title="Subtlety Rogue" src="css/img/spec_icons/sublety.png" alt="">
+        <img title="Assassination Rogue" src="css/img/spec_icons/assasin.png" alt="">
+        <img title="Destruction Warlock" src="css/img/spec_icons/destruction.png" alt="">
+        <img title="Demonology Warlock" src="css/img/spec_icons/demon.png" alt="">
+        <img title="Affliction Warlock" src="css/img/spec_icons/afflication.png" alt="">
+        <img title="Unholy Death Knight" src="css/img/spec_icons/unholy.png" alt="">
+        <img title="Elemental Shaman" src="css/img/spec_icons/elemental.png" alt="">
+        <img title="Enhancement Shaman" src="css/img/spec_icons/enhancement.png" alt="">
+        <img title="Shadow Priest" src="css/img/spec_icons/shadow.png" alt="">
       </div>
       <p id="contact_us">
         We're not using the standard application form, but instead
         we would like to talk directly with you on our guild discord.
-        There are two ways you can show your interest in our guild, raider or social.<br>
-        Contact one of the following members:
+        There are two ways you can show your interest in our guild.
       </p>
-      <h2>Nattevagten</h2>
-      <h2>Fabulousfu</h2>
-      <h2>Dumlehom</h2>
+      <p>Contact one of the following members:</p>
+      <div class="officers"></div>
+
       <p>Or fill out the form below, then we'll contact you.</p>
       <div class="contact_form">
+        <?php
+        if (isset($_GET['sent']) === true) {
+        /* Gives an alert to tell the user their mail as been sent */
+        echo '<script language="javascript">';
+        echo 'alert("Message has been sent, thank you!")';
+        echo '</script>';
+        /* Reload the website to make the contact form work once again*/
+        echo '<script language="javascript">';
+        echo 'setTimeout(function(){window.location.href="/"},1000)';
+        echo '</script>';
+        } else {
+
+        if (empty($errors) === false) {
+          echo '<ul style="padding-left: 0;">';
+          foreach($errors as $error) {
+            echo '<li style="color: red; ">', $error, '</li>';
+          }
+          echo '</ul>';
+        }
+       ?>
+
         <form role="form" action="" method="post">
           <label for="name">BattleTag<b>*</b></label>
           <input type="text" class="form-control" id="name" name="name" placeholder="Uglyface#2922"/>
 
-          <label for="email">Class + Main spec<b>*</b></label>
-          <input type="text" class="form-control" id="email" name="email" placeholder="Monk - Windwalker"/>
+          <label for="class_spec">Class + Main spec<b>*</b></label>
+          <input type="text" class="form-control" id="class_spec" name="class_spec" placeholder="Monk - Windwalker"/>
 
-          <label for="phone">We raid Monday, Wednesday and Sunday from 8pm to 11pm. Will you be able to attend?</label>
-          <input type="text" class="form-control" id="phone" name="phone" placeholder="Yes, but not every monday"/>
+          <label for="raid_days">We raid Monday, Wednesday and Sunday from 8pm to 11pm. Will you be able to attend?</label>
+          <input type="text" class="form-control" id="raid_days" name="raid_days" placeholder="Yes, but not every monday"/>
 
-          <label for="subject">Write the amount of traits you have for each spec.<b>*</b></label>
-          <input type="text" class="form-control" id="subject" name="subject" placeholder="WW/44 - BM/49 - MW/29"/>
+          <label for="traits">Write the amount of traits you have for each spec.<b>*</b></label>
+          <input type="text" class="form-control" id="traits" name="traits" placeholder="WW/44 - BM/49 - MW/29"/>
 
-          <label for="message">Any Comments?<b>*</b></label>
-          <textarea name="message" rows="8"></textarea>
-          <input type="submit" value="Send">
+          <label for="message">Comments?<b>*</b></label>
+          <textarea class="form-control" name="message" id="message" rows="5"></textarea>
+          <input type="submit" class="btn btn-default" value="Send">
         </form>
+        <?php
+          }
+        ?>
       </div>
-    </section>
 
+    </section>
+    <div id="madeBy">
+      Designed by <a href="http://scratz92.com/" target="_blank">Daniel H.</a></a>
+    </div>
   </body>
 </html>
